@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Tan</title>
+    <link href="./static/css/chunk-3ccafe68.488473ef.css" rel="stylesheet">
+    <link href="./static/css/chunk-76d24a13.c50b9415.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+
+    <div class="site">
+        <div class="container">
+            <div class="vanta-bg">
+                <div id="vanta-bg-intro"> </div>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        Seft-Introduction — bash — 80x
+                    </div>
+                    <div class="terminal-body">
+                        <span>$</span>
+                        <span id="typed" style="white-space:pre"></span>
+                        <span id="start-btn"> </span>
+                    </div>
+                </div>
+            </div>
+            <div class="vanta-bg" id="vanta-bg-project">
+                <div id="vanta-bg-project-bg"> </div>
+                <div id="graphapp"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/three.js/r124/three.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vanta/0.5.21/vanta.globe.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vanta/0.5.21/vanta.birds.min.js"></script>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/howler/2.2.1/howler.core.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.8/TweenMax.min.js"></script>
+
+    <script src="./static/js/chunk-3ccafe68.d30d86ba.js"></script>
+    <script src="./static/js/chunk-4061fdb8.455324c0.js"></script>
+    <script src="./static/js/chunk-76d24a13.404a2930.js"></script>
+    <script src="./static/js/chunk-c2f7465e.0d2e8545.js"></script>
+    <script src="./static/js/chunk-63b078fb.fda6f10e.js"></script>
+    <script src="./static/js/chunk-6fa99922.532a7d88.js"></script>
+    <script src="./static/js/index~01e7b97c.f1c80c24.js"></script>
+
+    <script type="module" defer>
+
+        var typed = document.getElementById('content');
+        var btn = document.getElementById('start-btn');
+
+        var sound = new Howl({
+            src: ['./static/music/medium-pace-Typing.mp3'],
+            loop: true,
+        });
+
+        sound.once('load', function () {
+            btn.onclick = function (e) {
+                this.classList.add('hide-btn')
+                sound.play()
+                main()
+            }
+        });
+
+        const tlFlip = setTweenAnimate()
+        window.tlFlip = tlFlip
+        tlFlip.pause()
+
+        setVantaBackground()
+
+        function setTweenAnimate() {
+
+            // let siteW = document.body.clientWidth;
+            var siteW = window.innerWidth;
+
+            const site = document.querySelector('.site')
+            const container = document.querySelector('.container')
+            const vantaBgProject = document.getElementById('vanta-bg-project')
+
+            TweenMax.set(site, { perspective: 5000 });
+            TweenMax.set(container, { transformStyle: "preserve-3d", transformOrigin: '-0% 50%' });
+            TweenMax.set(vantaBgProject, { rotationY: 90, z: -siteW / 2, x: siteW / 2 });
+
+            // var tlFlip = new TimelineMax({ yoyo: true, repeat: -1, delay: 1.5, repeatDelay: 2 });
+            var tlFlip = new TimelineMax({ yoyo: true, delay: 0.5 });
+
+            window.tlFlip = tlFlip
+
+            tlFlip
+                .to(site, .5, { scale: 0.8, ease: Power2.easeInOut }, "start")
+                .to(container, .4, { rotationY: -90, z: -siteW, ease: Power2.easeInOut }, "start+=0.7")
+                .to(site, .5, { scale: 1, ease: Power2.easeInOut }, "start+=1.2");
+
+            window.onresize = function () {
+                siteW = window.innerWidth;
+                TweenMax.set(vantaBgProject, { rotationY: 90, z: -siteW / 2, x: siteW / 2 });
+            }
+
+            vantaBgProject.style.visibility = 'visible'
+
+            return tlFlip
+        }
+
+        function setVantaBackground() {
+
+            window.vanta = VANTA.GLOBE({
+                el: "#vanta-bg-intro",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xc51753,
+                color2: 0x1abb95,
+                backgroundColor: 0xa0416
+            }).resize()
+
+            VANTA.BIRDS({
+                el: "#vanta-bg-project-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00
+            }).resize()
+        }
+
+        function main() {
+
+            const firstSentences = `Hi, I'm Tan\n`
+            const sentences = [
+                `A Front-End Web Programmer from China.`,
+                `I have been in this career for the past 5+ years.`,
+                `I work for a company in the devOps industry.`,
+                `I have been trained in complex`,
+                `2D or 3D visualization.`,
+                `So Tech-Stack I gain are: `,
+                `<strong>React</strong>, <strong>typescript</strong>, <strong>SVG</strong>, <strong>WebGL</strong>, <strong>D3/THREE.js</strong>...`,
+                "",
+                "",
+                `Ok let's see something cool!`,
+            ]
+            const sentencesWithSpan = sentences.map(s => `<span class="prompt">${s}</span>`).join('\n')
+            const ask = `\n  Press Enter Key!`
+            const introduction = firstSentences + sentencesWithSpan + ask
+
+            const typed = new Typed('#typed', {
+                strings: [introduction],
+                startDelay: 100,
+                onComplete: () => {
+                    sound.stop();
+                    document.onkeypress = function (e) {
+                        const enterKey = 13
+                        if (e.keyCode === enterKey) {
+                            tlFlip.play()
+                        }
+                        document.onkeypress = null
+                        // typed.destroy()
+                    }
+                },
+                typeSpeed: 70,
+                backDelay: 2000
+                // backSpeed: 0,
+                // smartBackspace: true, // this is a default
+                // loop: true
+            });
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
